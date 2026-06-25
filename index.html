@@ -4,6 +4,18 @@
 <body style="margin:0;background:#0a0a0a;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh">
 로딩중…
 <script>
-var m=(Math.min(window.innerWidth,window.innerHeight)<700)||/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-location.replace(m?'phone.html':'desktop.html');
+(function(){
+  var TRACK="https://script.google.com/macros/s/AKfycbwgD4eyR0Z0Wxu9VQ27-8inBtDlKJz94krjvmP9SKKE35-0E-zObKRSTSoqVH_AKHXzqw/exec";
+  var qs = location.search || "";
+  var q  = new URLSearchParams(qs);
+  var id = q.get("id") || "", src = q.get("src") || "";
+  if (TRACK) {
+    try {
+      var u = TRACK + "?ev=open&id=" + encodeURIComponent(id) + "&src=" + encodeURIComponent(src);
+      if (navigator.sendBeacon) { navigator.sendBeacon(u); } else { var im = new Image(); im.src = u; }
+    } catch (e) {}
+  }
+  var m = (Math.min(window.innerWidth, window.innerHeight) < 700) || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  location.replace((m ? 'phone.html' : 'desktop.html') + qs);
+})();
 </script></body></html>
