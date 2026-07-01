@@ -5,13 +5,9 @@
 로딩중…
 <script>
 (function(){
-  var TRACK="https://script.google.com/macros/s/AKfycby2v7n5snIg7Kme66DfrfgaAdmKI30-L44I-w7OTJQf_dsNi4fxV_BI-8cMsyFUMQSKNw/exec";
+  // 열람(open)은 여기서 안 쏨 — 스캐너/프리페치가 이 진입페이지만 스쳐도 가짜 '랜딩 읽음'이 찍히므로.
+  // 실제 제안서(phone/desktop)에서 사람이 3초 이상 머물 때 track.js가 open을 쏜다.
   var qs = location.search || "";
-  var q  = new URLSearchParams(qs);
-  var id = q.get("id") || "", src = q.get("src") || "";
-  // [열람추적 이전] '열람(open)'을 이 진입페이지에서 즉시 쏘지 않는다.
-  //   이유: 메일 보안 스캐너/프리페치가 이 페이지만 스쳐도 가짜 '랜딩 읽음'이 찍힘.
-  //   → 실제 제안서(phone/desktop)에서 사람이 3초 이상 머물 때 track.js가 open을 쏜다(스캐너는 3초 못 버팀).
   var m = (Math.min(window.innerWidth, window.innerHeight) < 700) || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   location.replace((m ? 'phone.html' : 'desktop.html') + qs);
 })();
